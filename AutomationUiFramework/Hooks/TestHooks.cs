@@ -28,9 +28,16 @@ namespace AutomationUiFramework.Hooks
             //DriverManager.Driver.Navigate().GoToUrl(ConfigReader.Get("BaseUrl"));
             _context.Driver.Navigate().GoToUrl(ConfigReader.Get("BaseUrl"));
             _context.LoginPage = new LoginPage(_context.Driver);
+            var owner = _scenarioContext.ScenarioInfo.Tags
+           .FirstOrDefault(t => t.StartsWith("owner:", StringComparison.OrdinalIgnoreCase))
+            ?.Split(':')[1];
             AllureLifecycle.Instance.UpdateTestCase(tc =>
             {
                 tc.name = _scenarioContext.ScenarioInfo.Title;
+                if (!string.IsNullOrEmpty(owner))
+                {
+                    tc.labels.Add(Label.Owner(owner));
+                }
             });
         }
         [BeforeStep]

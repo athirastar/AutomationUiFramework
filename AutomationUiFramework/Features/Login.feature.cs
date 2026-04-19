@@ -119,11 +119,18 @@ namespace AutomationUiFramework.Features
         
         [global::NUnit.Framework.TestAttribute()]
         [global::NUnit.Framework.DescriptionAttribute("Verify login with different credentials")]
+        [global::NUnit.Framework.CategoryAttribute("owner:athira")]
         [global::NUnit.Framework.TestCaseAttribute("athira", "Interview@998", "success", "0", null)]
         [global::NUnit.Framework.TestCaseAttribute("wronguser", "wrongpass", "failure", "1", null)]
         public async global::System.Threading.Tasks.Task VerifyLoginWithDifferentCredentials(string username, string password, string result, string @__pickleIndex, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "owner:athira"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("username", username);
             argumentsOfScenario.Add("password", password);

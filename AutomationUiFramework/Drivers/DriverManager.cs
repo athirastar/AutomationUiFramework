@@ -7,9 +7,9 @@ namespace AutomationUiFramework.Drivers
 {
     public sealed class DriverManager
     {
-        private static Lazy<IWebDriver> _lazyDriver;
+        private static Lazy<IWebDriver> _lazyDriver; //Holding Iwebdriver instance in Lazy<T> Means thread local initialization means multiple thread try to access driver at a same time and we want only once instance to be created 
 
-        private DriverManager() { }
+        private DriverManager() { } // it prevents creating instance from any of the class
 
         public static void Init(string browser)
         {
@@ -23,12 +23,13 @@ namespace AutomationUiFramework.Drivers
 
         public static IWebDriver Driver
         {
+            //provide controlled access to the webdriver instance
             get
             {
                 if (_lazyDriver == null)
                     throw new Exception("Driver not initialized. Call Init() first.");
 
-                return _lazyDriver.Value;
+                return _lazyDriver.Value; // create the driver if not created
             }
         }
 
